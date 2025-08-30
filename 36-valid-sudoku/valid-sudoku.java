@@ -13,7 +13,7 @@ class Solution {
                 String colKey = num + " in col " + j;
                 String boxKey = num + " in box " + (i / 3) + "-" + (j / 3);
                 
-                // If already seen, invalid
+                // If it is  already seen, invalid
                 if (!seen.add(rowKey) || !seen.add(colKey) || !seen.add(boxKey)) {
                     return false;
                 }

@@ -1,31 +1,57 @@
-import java.util.*;
-
 class Solution {
-    public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0) return new int[0];
-        
-        int n = nums.length;
-        int[] result = new int[n - k + 1];
-        Deque<Integer> dq = new LinkedList<>(); // stores indices
 
-        for (int i = 0; i < n; i++) {
-            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
-                dq.pollFirst();
-            }
+    static{
+        int [] ans = new int[]{5,6,7};
 
-            // her we are remove smaller elements from the back
-            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
-                dq.pollLast();
-            }
-
-            // here adding current element's index
-            dq.offerLast(i);
-
-            // here we are storing result (window formed only after i >= k-1)
-            if (i >= k - 1) {
-                result[i - k + 1] = nums[dq.peekFirst()];
+        for(int i =0; i< 301;i++){
+            maxSlidingWindow(ans,2);
+        }
+       
+    }
+     public static int[] maxSlidingWindow(int[] nums, int k) {
+       int l = nums.length;
+        int[] ans = new int[l - k + 1];
+        if (k == 1) {
+            return nums;
+        }
+        int max = Integer.MIN_VALUE;
+        int ind = 0;
+        for (int i = 0; i < k; i++) {
+            int n = nums[i];
+            if (n >= max) {
+                ind = i;
+                max = n;
             }
         }
-        return result;
+        ans[0] = max;
+        int end = 0;
+        for (int i = 1; i < ans.length; i++) {
+            end = i + k - 1;
+            if (i <= ind) {
+                if (nums[end] >= max) {
+                    max = nums[end];
+                    ind = end;
+                }
+            } else {
+                if (nums[end] >= max - 1) {
+                    max = nums[end];
+                    ind = end;
+                } else if (nums[i] >= max - 1) {
+                    max = nums[i];
+                    ind = i;
+                } else {
+                    max = Integer.MIN_VALUE;
+                    for (int j = i; j < end + 1; j++) {
+                        if (nums[j] >= max) {
+                            max = nums[j];
+                            ind = j;
+                        }
+                    }
+                }
+            }
+            ans[i] = max;
+        }
+        return ans;
     }
+
 }

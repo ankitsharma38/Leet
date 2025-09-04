@@ -19,6 +19,6 @@ public class Solution {
                 return slow; // start of cycle
             }
         }
-        return null; // no cycle
+        return null; //if no cycle then returning null 
     }
 }

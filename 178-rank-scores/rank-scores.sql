@@ -2,8 +2,8 @@
 SELECT
     score,
     DENSE_RANK() OVER (ORDER BY score DESC) AS `rank`
-FROM Scores
-ORDER BY score DESC;
+FROM Scores;
+-- ORDER BY score DESC;
 
 
 -- SELECT S.score ,COUNT(S2.SCORE) as `rank` FROM SCORES S,

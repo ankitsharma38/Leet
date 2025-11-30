@@ -1,6 +1,5 @@
 # Write your MySQL query statement below
-SELECT 
-    t.id,
+select t.id,
     CASE
         WHEN t.p_id IS NULL THEN 'Root'
         WHEN c.p_id IS NULL THEN 'Leaf'

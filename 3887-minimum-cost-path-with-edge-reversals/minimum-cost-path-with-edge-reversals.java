@@ -4,13 +4,11 @@ class Solution {
         for(int i = 0; i < n; i++){
             paths[i] = new ArrayList<>();
         }
-        
         for(int[] x: edges){
             int u = x[0], v = x[1], w = x[2];
             paths[u].add(new int[]{v, w});
             paths[v].add(new int[]{u, w * 2});
         }
-
         int[] weight = new int[n];
         Arrays.fill(weight, Integer.MAX_VALUE);
         weight[0] = 0;

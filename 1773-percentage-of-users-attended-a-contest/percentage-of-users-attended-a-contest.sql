@@ -4,3 +4,5 @@ SELECT
 FROM Register
 GROUP BY contest_id
 ORDER BY percentage DESC, contest_id;
+
+-- //it may save by register by default as similarity 

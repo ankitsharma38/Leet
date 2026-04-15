@@ -1,10 +1,13 @@
-# Write your MySQL query statement below
-SELECT p.product_id, COALESCE(latest.new_price, 10) AS price
-FROM (SELECT DISTINCT product_id FROM Products) p
-LEFT JOIN Products latest
-ON p.product_id = latest.product_id
-AND latest.change_date = (
-    SELECT MAX(change_date)
-    FROM Products
-    WHERE product_id = p.product_id AND change_date <= '2019-08-16'
-);
+/* Write your T-SQL query statement below */
+SELECT
+    product_id,
+    FIRST_VALUE(new_price) OVER (PARTITION BY product_id ORDER BY change_date DESC) AS price
+FROM Products
+WHERE change_date <= '2019-08-16'
+UNION
+SELECT
+    product_id,
+    10 AS price
+FROM Products
+GROUP BY product_id
+HAVING MIN(change_date) > '2019-08-16'
